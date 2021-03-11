@@ -1,7 +1,8 @@
 import express, {Application} from 'express';
 import morgan from 'morgan';
 
-const app = express();
+//Routes
+import IndexRoutes from './routes/index.routes'
 
 
 export class App {
@@ -13,6 +14,7 @@ export class App {
         this.app = express();
         this.settings();
         this.middelwares();
+        this.routes();
     }
 
     settings() {
@@ -23,9 +25,13 @@ export class App {
     middelwares() {
         this.app.use(morgan('dev'))
     }
+    routes(){
+        this.app.use(IndexRoutes)
+
+    }
 
     async listen() {
-        await app.listen(this.app.get('port'));
+        await this.app.listen(this.app.get('port'));
         console.log('Server on port', this.app.get('port'))
     }
 

@@ -1,6 +1,15 @@
 import {createPool} from "mysql2";
 
-export function connect(){
+export async function connect() {
 
-    createPool()
+    const connection = await createPool({
+
+        host: 'localhost',
+        user: 'root',
+        password: '2509francaR',
+        database: 'jumelco',
+        connectionLimit: 10
+
+    });
+    return connection;
 }

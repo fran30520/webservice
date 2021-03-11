@@ -18,5 +18,5 @@ tipo VARCHAR(200)
 CREATE TABLE Citas(
 IdC INT(5) NOT NULL PRIMARY KEY AUTO_INCREMENT,
 fecha DATE NOT NULL,
-observaciones VARCHAR(300)
+observaciones TEXT
 );
