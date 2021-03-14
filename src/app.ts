@@ -3,6 +3,7 @@ import morgan from 'morgan';
 
 //Routes
 import IndexRoutes from './routes/index.routes'
+import clientesRouters from "./routes/clientes.routes";
 
 
 export class App {
@@ -27,6 +28,7 @@ export class App {
     }
     routes(){
         this.app.use(IndexRoutes)
+        this.app.use('/clientes',clientesRouters)
 
     }
 
