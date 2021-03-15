@@ -1,4 +1,4 @@
-import express, {Application} from 'express';
+import express, {Application, urlencoded} from 'express';
 import morgan from 'morgan';
 
 //Routes
@@ -25,6 +25,7 @@ export class App {
 
     middelwares() {
         this.app.use(morgan('dev'))
+        this.app.use(express.json);
     }
     routes(){
         this.app.use(IndexRoutes)

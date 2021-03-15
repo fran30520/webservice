@@ -6,7 +6,7 @@ export async function connect() {
 
         host: 'localhost',
         user: 'root',
-        password: '2509francaR',
+        password: 'secret',
         database: 'jumelco',
         connectionLimit: 10
 
