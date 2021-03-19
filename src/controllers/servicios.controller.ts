@@ -3,26 +3,30 @@ import {connect} from "../database";
 import {ServiciosInterfaces} from "../interfaces/servicios.interfaces"
 
 
-export async function getServicios(req: Request, res: Response): Promise<Response> {
+export async function getServicios(req: Request, res: Response) {
     const conn = await connect();
-    const servicio = conn.query('select * from servicios')
-    return res.json(servicio);
+    conn.query('select * from servicios',(err,row)=>{
+        return res.json(row);
+    })
+
 };
 
 export async function createServicio(req: Request, res: Response) {
     const newServicio: ServiciosInterfaces = req.body;
     const conn = await connect();
-    await conn.query('INSERT INTO servicios SET ?', [newServicio]);
+    conn.query('INSERT INTO servicios SET ?', [newServicio]);
 
     return res.json({
         message: "nuevo servicio creado"
     });
 }
 
-export async function getServicio(req: Request, res: Response): Promise<Response> {
-    const id = req.params.idS;
+export async function getServicio(req: Request, res: Response) {
+    const nombre = req.params.idS;
+    console.log(nombre)
     const conn = await connect();
-    const servicio = await conn.query('SELECT * FROM servicios WHERE IdS = ?', [id]);
+    const servicio = conn.query('SELECT * FROM servicios WHERE nombre = ?', [nombre]);
+    //console.log(servicio)
     return res.json(servicio);
 
 }
