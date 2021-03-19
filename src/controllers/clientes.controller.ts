@@ -2,44 +2,47 @@ import {Request, Response} from 'express'
 import {connect} from "../database";
 import {ClientesInterfaces} from "../interfaces/clientes.interfaces"
 
-export async function getClientes(req: Request, res: Response): Promise<Response> {
+export async function getClientes(req: Request, res: Response){
     const conn = await connect();
-    const cliente = conn.query('select * from clientes')
-    return res.json(cliente[0]);
+    conn.query('select * from clientes',(err,rows)=>{
+        return res.json(rows)
+    })
+
 };
 
-export async function createClientes(req: Request, res: Response) {
+export async function createClientes(req: Request, res: Response):Promise<Response> {
+
     const newCliente: ClientesInterfaces = req.body;
     const conn = await connect();
-    await conn.query('INSERT INTO clientes SET ?', [newCliente]);
+    conn.query("INSERT INTO clientes SET ?",[newCliente]);
 
     return res.json({
         message: "nuevo cliente creado"
     });
 }
 
-export async function getCliente(req: Request, res: Response): Promise<Response> {
-    const id = req.params.idCli;
+export async function getCliente(req: Request, res: Response) {
+    const id = req.params.idCli
     const conn = await connect();
-    const cliente = await conn.query('SELECT * FROM clientes WHERE idCli = ?', [id]);
-    return res.json(cliente[0]);
+    const cliente = conn.query('SELECT * FROM clientes WHERE idCli ?', [id]);
+    return res.json(cliente);
 
 }
 
-export async function deleteCliente(req: Request, res: Response) {
+export async function deleteCliente(req: Request, res: Response):Promise<Response> {
     const id = req.params.idCli;
     const conn = await connect();
-    const cliente = await conn.query('DELETE FROM clientes WHERE idCli = ?', [id])
+    conn.query('DELETE FROM clientes WHERE idCli = ?', [id])
     return res.json({
         message: "Cliente borrado"
     })
 }
 
-export async function updateCliente(req: Request, res: Response) {
+export async function updateCliente(req: Request, res: Response):Promise<Response> {
     const id = req.params.idCli;
-    const cliente = req.body;
+    const cliente: ClientesInterfaces = req.body;
     const conn = await connect();
-    const updateCli = await conn.query('UPDATE clientes set ? WHERE idCli = ?',[cliente,id])
+    conn.query('UPDATE clientes set = ? WHERE idCli = ?',[cliente,id])
     return res.json({
         message: "Cliente actualizado"
 });

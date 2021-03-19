@@ -8,8 +8,10 @@ export async function connect() {
         user: 'root',
         password: 'secret',
         database: 'jumelco',
-        connectionLimit: 10
+        connectionLimit: 100,
+        port:3000
 
     });
+
     return connection;
 }

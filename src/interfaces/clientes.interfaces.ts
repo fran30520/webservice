@@ -5,5 +5,5 @@ export interface ClientesInterfaces{
     direccion: string;
     telefono: number;
     email: string;
-    contrasena: string;
+    contraseña: string;
 }

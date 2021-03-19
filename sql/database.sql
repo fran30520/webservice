@@ -7,7 +7,7 @@ create table clientes
     direccion  VARCHAR(200),
     telefono   INT (15),
     email      VARCHAR(50),
-    contraseña VARCHAR(10)
+    contrasena VARCHAR(10)
 );
 CREATE TABLE servicios
 (

@@ -20,12 +20,12 @@ export class App {
 
     settings() {
 
-        this.app.set('port', this.port || process.env.PORT || 3000)
+        this.app.set('port', this.port || process.env.PORT || 3200)
     }
 
     middelwares() {
         this.app.use(morgan('dev'))
-        this.app.use(express.json);
+        this.app.use(express.json());
     }
     routes(){
         this.app.use(IndexRoutes)
