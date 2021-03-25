@@ -8,7 +8,7 @@ export async function getClientes(req: Request, res: Response){
         return res.json(rows)
     })
 
-};
+}
 
 export async function createClientes(req: Request, res: Response):Promise<Response> {
 
@@ -24,10 +24,9 @@ export async function createClientes(req: Request, res: Response):Promise<Respon
 export async function getCliente(req: Request, res: Response) {
     const id = req.params.idCli
     const conn = await connect();
-    const cliente =  conn.query('SELECT * FROM clientes WHERE idCli = ?', [id]);
-    return res.json(cliente);
-
-}
+    conn.query('SELECT * FROM clientes WHERE idCli = ?', [id],(err,rows)=> {
+        return res.json(rows);}
+    );}
 
 export async function deleteCliente(req: Request, res: Response):Promise<Response> {
     const id = req.params.idCli;
@@ -38,14 +37,12 @@ export async function deleteCliente(req: Request, res: Response):Promise<Respons
     })
 }
 
-export async function updateCliente(req: Request, res: Response):Promise<Response> {
+export async function updateCliente(req: Request, res: Response) {
     const id = req.params.idCli;
     const cliente: ClientesInterfaces = req.body;
-    console.log(id);
-    console.log(cliente);
     const conn = await connect();
-    conn.query('UPDATE clientes set  ? WHERE idCli  ?',[cliente,id])
-    return res.json({
-        message: "Cliente actualizado"
-});
-}
+    const consulta = conn.query('UPDATE clientes set  ? WHERE idCli = ?',[cliente,id])
+        console.log(consulta);
+        return res.json(consulta);
+
+    }
