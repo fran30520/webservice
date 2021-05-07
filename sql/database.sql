@@ -1,11 +1,11 @@
 CREATE
-DATABASE jumelco;
+    DATABASE jumelco;
 create table clientes
 (
-    IdCli      INT(5) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    IdCli      INT(5)       NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nombre     VARCHAR(150) NOT NULL,
     direccion  VARCHAR(200),
-    telefono   INT (15),
+    telefono   INT(15),
     email      VARCHAR(50),
     contrasena VARCHAR(10)
 );
@@ -18,6 +18,7 @@ CREATE TABLE servicios
 CREATE TABLE citas
 (
     IdC           INT(5) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    fecha         DATE NOT NULL,
+    IdCliente     INT(5) not null ,
+    fecha         DATE   NOT NULL,
     observaciones TEXT(300)
 );

@@ -25,11 +25,10 @@ export async function createCita(req: Request, res: Response):Promise<Response> 
 export async function getCita(req: Request, res: Response) {
     const id = req.params.IdC;
     const conn = await connect();
-    conn.query('SELECT * FROM citas WHERE IdC = ?', [id],(err,rows)=> {
+    conn.query('SELECT * FROM citas where IdC =?', [id],(err,rows)=> {
             return res.json(rows);}
     );
 }
-
 export async function deleteCita(req: Request, res: Response):Promise<Response> {
     const id = req.params.IdC;
     const conn = await connect();

@@ -2,6 +2,7 @@ import {Request, Response} from 'express'
 import {connect} from "../database";
 import {ClientesInterfaces} from "../interfaces/clientes.interfaces"
 
+
 export async function getClientes(req: Request, res: Response){
     const conn = await connect();
     conn.query('select * from clientes',(err,rows)=>{
@@ -41,8 +42,12 @@ export async function updateCliente(req: Request, res: Response) {
     const id = req.params.idCli;
     const cliente: ClientesInterfaces = req.body;
     const conn = await connect();
-    const consulta = conn.query('UPDATE clientes set  ? WHERE idCli = ?',[cliente,id])
-        console.log(consulta);
-        return res.json(consulta);
+    conn.query('UPDATE clientes set  ? WHERE idCli = ?',[cliente,id],(error,result,campos)=>{
+        conn.query('SELECT * FROM clientes WHERE idCli = ?', [id],(err,rows)=> {
+            return res.json(rows);}
+        );
+
+})
+
 
     }
