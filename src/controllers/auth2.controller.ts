@@ -8,9 +8,8 @@ export async function login(req:Request,res:Response){
     conn.query('SELECT * FROM clientes where email=? and contrasena=?' , [email,password],(err,rows)=>{
         // @ts-ignore
         const user = rows[0];
-        console.log(user);
         if (user!=null){
-            res.json({"status:":"ok","usuario": user})
+            res.json(user)
         }
         else{
            res.status(401).json({

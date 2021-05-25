@@ -1,6 +1,6 @@
 export interface ClientesInterfaces{
 
-    id: number;
+    id?: number;
     nombre: string;
     direccion: string;
     telefono: number;

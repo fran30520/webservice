@@ -11,15 +11,34 @@ export async function getClientes(req: Request, res: Response){
 
 }
 
-export async function createClientes(req: Request, res: Response):Promise<Response> {
+export async function createClientes(req: Request, res: Response){
 
-    const newCliente: ClientesInterfaces = req.body;
+    const newCliente: ClientesInterfaces = {
+        nombre: req.body.nombre,
+        direccion: req.body.direccion,
+        telefono: req.body.telefono,
+        email: req.body.email,
+        contrasena: req.body.contrasena
+    };
     const conn = await connect();
-    conn.query("INSERT INTO clientes SET ?",[newCliente]);
+    conn.query("INSERT INTO clientes SET ?",[newCliente],function (err,result){
+        if(err){
+            console.log(JSON.stringify(err))
+                return res.status(500).json(err)
+        }
+        // @ts-ignore
+        console.log(result.insertId)
+        // @ts-ignore
+        conn.query('SELECT * FROM clientes WHERE idCli = ?', [result.insertId],(err,rows)=> {
+            // @ts-ignore
+            console.log(rows[0])
 
-    return res.json({
-        message: "nuevo cliente creado"
+            // @ts-ignore
+            return res.json(rows[0]);});
+
     });
+
+
 }
 
 export async function getCliente(req: Request, res: Response) {
