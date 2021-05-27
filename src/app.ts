@@ -43,12 +43,6 @@ export class App {
         this.app.use("/servicios",serviciosRouters)
         this.app.use("/citas",citasRouters)
         this.app.use('/login',loginRouters)
-        //this.app.use("/login",loginRouters)
-        /*this.app.post('/login',(req:Request,res:Response)=>{
-            console.log(req.body);
-            res.send("HOLA");
-        })*/
-
     }
 
     async listen() {

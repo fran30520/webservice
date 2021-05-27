@@ -9,10 +9,10 @@ router.route('/')
     .post(createClientes)
 
 router.route('/:idCli')
-    .get(getCliente)
     .delete(deleteCliente)
     .put(updateCliente)
-
+router.route('/email')
+    .get(getCliente)
 export default router;
 
 

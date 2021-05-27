@@ -42,9 +42,11 @@ export async function createClientes(req: Request, res: Response){
 }
 
 export async function getCliente(req: Request, res: Response) {
-    const id = req.params.idCli
+    const email = req.params.email;
     const conn = await connect();
-    conn.query('SELECT * FROM clientes WHERE idCli = ?', [id],(err,rows)=> {
+    console.log(email)
+    conn.query('SELECT * FROM clientes WHERE email = ?', [email],(err,rows)=> {
+
         return res.json(rows);}
     );}
 

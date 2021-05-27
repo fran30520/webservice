@@ -2,8 +2,8 @@
 
 export interface CitasInterfaces{
 
-    id: number;
-    idCliente: number;
+    IdC?: number;
+    idCliC: number;
     fecha: Date;
     observaciones: string;
 

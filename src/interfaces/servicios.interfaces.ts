@@ -1,6 +1,8 @@
 export interface ServiciosInterfaces{
 
-    idServ: number;
-    nombre: string;
+    idServ?: number;
     tipo: string;
+    opcion: string;
+    description: string;
+    IdCliS: number
 }

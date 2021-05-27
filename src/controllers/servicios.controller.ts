@@ -1,6 +1,7 @@
 import {Request,Response} from 'express'
 import {connect} from "../database";
 import {ServiciosInterfaces} from "../interfaces/servicios.interfaces";
+import {ClientesInterfaces} from "../interfaces/clientes.interfaces";
 
 export async function getServicios(req: Request, res: Response) {
     const conn = await connect();
@@ -8,14 +9,32 @@ export async function getServicios(req: Request, res: Response) {
         return res.json(rows)
     })
 }
-export async function createServicio(req: Request, res: Response):Promise<Response> {
+export async function createServicio(req: Request, res: Response) {
 
-    const newServicios: ServiciosInterfaces = req.body;
+    const newServicios: ServiciosInterfaces = {
+        tipo: req.body.tipo,
+        opcion: req.body.opcion,
+        description: req.body.description,
+        IdCliS:req.body.IdCliS
+
+    };
     const conn = await connect();
-    conn.query("INSERT INTO servicios SET ?",[newServicios]);
+    conn.query("INSERT INTO servicios SET ?",[newServicios],function (err,result){
+        if(err){
+            console.log(JSON.stringify(err))
+            return res.status(500).json(err)
+        }
+        // @ts-ignore
+        console.log(result.insertId)
+        // @ts-ignore
+        conn.query('SELECT * FROM servicios WHERE IdS = ?', [result.insertId],(err,rows)=> {
+            // @ts-ignore
+            console.log(rows[0])
 
-    return res.json({
-        message: "nuevo Servicio creado"
+            // @ts-ignore
+            return res.json(rows[0]);});
+
+
     });
 }
 
